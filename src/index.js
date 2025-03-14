@@ -1,32 +1,39 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Get references to form and task list
-  const form = document.getElementById("create-task-form");
-  const taskInput = document.getElementById("new-task-description");
-  const taskList = document.getElementById("tasks");
+  document.addEventListener("DOMContentLoaded", () => {
+    // Select the form and task list
+    const taskForm = document.getElementById("create-task-form");
+    const taskList = document.getElementById("tasks");
 
-  // Handle form submission
-  form.addEventListener("submit", (event) => {
-    event.preventDefault(); // Prevents page reload
+    // Listen for form submission
+    taskForm.addEventListener("submit", (event) => {
+        event.preventDefault(); // Prevents page reload
 
-    const taskText = taskInput.value.trim();
-    if (taskText === "") return; // Ignore empty tasks
+        // Get the input value
+        const taskInput = document.getElementById("new-task-description").value;
 
-    // Create a task element
-    const li = document.createElement("li");
-    li.textContent = taskText;
+        if (taskInput.trim() !== "") {
+            // Create a new list item
+            const newTask = document.createElement("li");
+            newTask.textContent = taskInput;
 
-    // Add delete button
-    const deleteButton = document.createElement("button");
-    deleteButton.textContent = "❌";
-    deleteButton.style.marginLeft = "10px";
+            // Create a delete button
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "❌";
+            deleteButton.style.marginLeft = "10px";
 
-    // Delete task on button click
-    deleteButton.addEventListener("click", () => li.remove());
+            // Delete task when button is clicked
+            deleteButton.addEventListener("click", () => {
+                newTask.remove();
+            });
 
-    li.appendChild(deleteButton);
-    taskList.appendChild(li);
+            // Append delete button to the task
+            newTask.appendChild(deleteButton);
+            taskList.appendChild(newTask);
 
-    // Clear the input field
-    taskInput.value = "";
-  });
+            // Clear input field
+            taskForm.reset();
+        }
+    });
+});
+
 });
